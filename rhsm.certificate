@@ -606,11 +606,11 @@ CLASSES
 
         getName(self)
 
-        getVariant(self)
-
         getArch(self)
 
         getVersion(self)
+
+        getProvidedTags(self)
 
         __eq__(self, rhs)
 
@@ -625,6 +625,8 @@ CLASSES
 
     class Content(Entitlement)
 
+
+        __init__(self, ext)
 
         getName(self)
 
@@ -644,14 +646,13 @@ CLASSES
 
         getMetadataExpire(self)
 
+        getRequiredTags(self)
+
         __eq__(self, rhs)
 
         __str__(self)
 
         __repr__(self)
-
-        Inherited methods
-            rhsm.certificate.Entitlement.__init__(self, ext)
 
     class Role(Entitlement)
 
@@ -690,6 +691,12 @@ CLASSES
             CERT_PATTERN = re.compile('-----BEGIN CERTIFICATE-----\n.+\n...
 
         Inherited methods
+
+FUNCTIONS
+
+    parse_tags(tag_str)
+        Split a comma separated list of tags from a certificate into a
+        list.
 
 VARIABLES
 
