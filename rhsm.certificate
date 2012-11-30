@@ -1,0 +1,688 @@
+MODULE NAME
+    rhsm.certificate
+
+DESCRIPTION
+    Contains classes for working with x.509 certificates. The backing
+    implementation is M2Crypto.X509 which has insufficient support for
+    custom v3 extensions.  It is not intended to be a replacement of full
+    wrapper but instead an extension.
+
+
+CLASSES
+
+    class Certificate(object)
+        Represents and x.509 certificate.
+
+
+        __init__(self, content=None)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        _update(self, content)
+
+        _parse_subject(self)
+
+        serialNumber(self)
+            Get the serial number
+            Returns:
+                The x.509 serial number
+            Return type:
+                str
+
+        subject(self)
+            Get the certificate subject. note: Missing NID mapping for UID
+            added to patch openssl.
+            Returns:
+                A dictionary of subject fields.
+            Return type:
+                dict
+
+        alternateName(self)
+            Return the altername name of the certificate.
+            Returns:
+                A string representation of hte alternate name
+            Return type:
+                str
+
+        validRange(self)
+            Get the valid date range.
+            Returns:
+                The valid date range.
+            Return type:
+                DateRange
+
+        valid(self, on_date=None)
+            Get whether the certificate is valid based on date.
+            Returns:
+                True if valid.
+            Return type:
+                boolean
+
+        bogus(self)
+            Get whether the certificate contains bogus data or is otherwise
+            unsuitable.  The certificate may be valid but still be
+            considered bogus.
+            Returns:
+                List of reasons if bogus
+            Return type:
+                list
+
+        extensions(self)
+            Get custom extensions.
+            Returns:
+                An extensions object.
+            Return type:
+                Extensions
+
+        read(self, path)
+            Read a certificate file.
+            Returns:
+                A certificate
+            Return type:
+                Certificate
+
+        write(self, path)
+            Write the certificate.
+            Returns:
+                self
+
+        delete(self)
+            Delete the file associated with this certificate.
+
+        toPEM(self)
+            Get PEM representation of the certificate.
+            Returns:
+                A PEM string
+            Return type:
+                str
+
+        __str__(self)
+            str(x)
+
+        __repr__(self)
+            repr(x)
+
+        __cmp__(self, other)
+
+        Instance variables
+
+            __ext
+                A dictionary of extensions OID:value
+
+            x509
+                The M2Crypto.X509 backing object.
+
+        Inherited methods
+
+    class RedhatCertificate(Certificate)
+        Represents a Red Hat certificate.
+
+
+        _update(self, content)
+
+        redhat(self)
+            Get the extension subtree for the redhat namespace.
+            Returns:
+                The extensions with the RH namespace trimmed.
+            Return type:
+                Extension
+
+        bogus(self)
+            Get whether the certificate contains bogus data or is otherwise
+            unsuitable.  The certificate may be valid but still be
+            considered bogus.
+            Returns:
+                List of reasons if bogus
+            Return type:
+                list
+
+        Class variables
+
+            REDHAT = '1.3.6.1.4.1.2312.9'
+                The Red Hat base OID.
+
+        Inherited methods
+            rhsm.certificate.Certificate.__cmp__(self, other)
+            rhsm.certificate.Certificate.__init__(self, content=None)
+            rhsm.certificate.Certificate.__repr__(self)
+            rhsm.certificate.Certificate.__str__(self)
+            rhsm.certificate.Certificate._parse_subject(self)
+            rhsm.certificate.Certificate.alternateName(self)
+            rhsm.certificate.Certificate.delete(self)
+            rhsm.certificate.Certificate.extensions(self)
+            rhsm.certificate.Certificate.read(self, path)
+            rhsm.certificate.Certificate.serialNumber(self)
+            rhsm.certificate.Certificate.subject(self)
+            rhsm.certificate.Certificate.toPEM(self)
+            rhsm.certificate.Certificate.valid(self, on_date=None)
+            rhsm.certificate.Certificate.validRange(self)
+            rhsm.certificate.Certificate.write(self, path)
+
+        Inherited instance variables
+            rhsm.certificate.Certificate.x509
+
+    class ProductCertificate(RedhatCertificate)
+        Represents a Red Hat product/entitlement certificate. It is OID
+        schema aware and provides methods to get product information.
+
+
+        getProduct(self)
+            Get the product defined in the certificate.
+            Returns:
+                A product object.
+            Return type:
+                Product
+
+        getProducts(self)
+            Get a list products defined in the certificate.
+            Returns:
+                A list of product objects.
+            Return type:
+                [Product,..]
+
+        bogus(self)
+            Get whether the certificate contains bogus data or is otherwise
+            unsuitable.  The certificate may be valid but still be
+            considered bogus.
+            Returns:
+                List of reasons if bogus
+            Return type:
+                list
+
+        __str__(self)
+            str(x)
+
+        Inherited methods
+            rhsm.certificate.Certificate.__cmp__(self, other)
+            rhsm.certificate.Certificate.__init__(self, content=None)
+            rhsm.certificate.Certificate.__repr__(self)
+            rhsm.certificate.Certificate._parse_subject(self)
+            rhsm.certificate.RedhatCertificate._update(self, content)
+            rhsm.certificate.Certificate.alternateName(self)
+            rhsm.certificate.Certificate.delete(self)
+            rhsm.certificate.Certificate.extensions(self)
+            rhsm.certificate.Certificate.read(self, path)
+            rhsm.certificate.RedhatCertificate.redhat(self)
+            rhsm.certificate.Certificate.serialNumber(self)
+            rhsm.certificate.Certificate.subject(self)
+            rhsm.certificate.Certificate.toPEM(self)
+            rhsm.certificate.Certificate.valid(self, on_date=None)
+            rhsm.certificate.Certificate.validRange(self)
+            rhsm.certificate.Certificate.write(self, path)
+
+        Inherited instance variables
+            rhsm.certificate.Certificate.x509
+
+        Inherited class variables
+            rhsm.certificate.RedhatCertificate.REDHAT = '1.3.6.1.4.1.2312.9'
+
+    class EntitlementCertificate(ProductCertificate)
+        Represents an entitlement certificate.
+
+
+        _update(self, content)
+
+        getOrder(self)
+            Get the order object defined in the certificate.
+            Returns:
+                An order object.
+            Return type:
+                Order
+
+        getEntitlements(self)
+            Get the all entitlements defined in the certificate.
+            Returns:
+                A list of entitlement object.
+            Return type:
+                [Entitlement,..]
+
+        getContentEntitlements(self)
+            Get the content entitlements defined in the certificate.
+            Returns:
+                A list of entitlement object.
+            Return type:
+                [Content,..]
+
+        getRoleEntitlements(self)
+            Get the role entitlements defined in the certificate.
+            Returns:
+                A list of entitlement object.
+            Return type:
+                [Role,..]
+
+        validRange(self)
+            Get the valid date range.
+
+            Overrides the Certificate method to look at the Order end date,
+            ignoring the grace period (if there is one).
+            Returns:
+                The valid date range.
+            Return type:
+                DateRange
+
+        validRangeWithGracePeriod(self)
+
+        validWithGracePeriod(self)
+
+        bogus(self)
+            Get whether the certificate contains bogus data or is otherwise
+            unsuitable.  The certificate may be valid but still be
+            considered bogus.
+            Returns:
+                List of reasons if bogus
+            Return type:
+                list
+
+        __str__(self)
+            str(x)
+
+        Inherited methods
+            rhsm.certificate.Certificate.__cmp__(self, other)
+            rhsm.certificate.Certificate.__init__(self, content=None)
+            rhsm.certificate.Certificate.__repr__(self)
+            rhsm.certificate.Certificate._parse_subject(self)
+            rhsm.certificate.Certificate.alternateName(self)
+            rhsm.certificate.Certificate.delete(self)
+            rhsm.certificate.Certificate.extensions(self)
+            rhsm.certificate.ProductCertificate.getProduct(self)
+            rhsm.certificate.ProductCertificate.getProducts(self)
+            rhsm.certificate.Certificate.read(self, path)
+            rhsm.certificate.RedhatCertificate.redhat(self)
+            rhsm.certificate.Certificate.serialNumber(self)
+            rhsm.certificate.Certificate.subject(self)
+            rhsm.certificate.Certificate.toPEM(self)
+            rhsm.certificate.Certificate.valid(self, on_date=None)
+            rhsm.certificate.Certificate.write(self, path)
+
+        Inherited instance variables
+            rhsm.certificate.Certificate.x509
+
+        Inherited class variables
+            rhsm.certificate.RedhatCertificate.REDHAT = '1.3.6.1.4.1.2312.9'
+
+    class Key(object)
+        The (private|public) key.
+
+
+        __init__(self, content)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        write(self, path)
+            Write the key.
+            Returns:
+                self
+
+        delete(self)
+            Delete the file associated with this key.
+
+        __str__(self)
+            str(x)
+
+        Class methods
+
+            read(cls, path)
+                Read the key.
+
+        Instance variables
+
+            content
+                The PEM encoded key.
+
+        Inherited methods
+
+    class DateRange
+        Date range object.
+
+
+        __init__(self, begin_date, end_date)
+
+        _convert_to_utc(self, timestamp)
+
+        begin(self)
+            Get range beginning.
+            Returns:
+                The beginning date in UTC.
+            Return type:
+                datetime.datetime
+
+        end(self)
+            Get range end.
+            Returns:
+                The end date in UTC.
+            Return type:
+                datetime.datetime
+
+        hasNow(self)
+            Get whether the certificate is valid based on the date now.
+            Returns:
+                True if valid.
+            Return type:
+                boolean
+
+        hasDate(self, date)
+            Get whether the certificate is valid based on the date now.
+            Returns:
+                True if valid.
+            Return type:
+                boolean
+
+        __str__(self)
+
+        Instance variables
+
+            begin_date
+                The begining date
+
+            end_date
+                The ending date
+
+    class GMT(datetime.tzinfo)
+        GMT
+
+
+        utcoffset(self, dt)
+
+        tzname(self, dt)
+
+        dst(self, dt)
+
+    class Extensions(dict)
+        Represents x.509 (v3) custom extensions.
+
+
+        __init__(self, x509)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+            Return type:
+                new empty dictionary
+
+        ltrim(self, n)
+            Left trim n parts.
+            Returns:
+                The trimmed OID
+            Return type:
+                Extensions
+
+        get(self, oid, default=None)
+            Get the value of an extension by oid. Note: The oid may contain
+            (*) wildcards.
+            Returns:
+                The value of the first extension matched.
+            Return type:
+                str
+
+        find(self, oid, limit=0)
+            Find all extensions matching the oid. Note: The oid may contain
+            (*) wildcards.
+            Returns:
+                A list of matching items.
+            Return type:
+                (OID, value)
+
+        branch(self, root)
+            Find a subtree by matching the oid.
+            Returns:
+                A subtree.
+            Return type:
+                Extensions
+
+        __ext(self, x509)
+
+        __parse(self, x509)
+
+        __str__(self)
+            str(x)
+
+        Class variables
+
+            pattern = re.compile('([0-9]+\.)+[0-9]+:')
+
+        Inherited methods
+            dict.__cmp__(x, y)
+            dict.__contains__(D, k)
+            dict.__delitem__(x, y)
+            dict.__eq__(x, y)
+            dict.__ge__(x, y)
+            dict.__getattribute__(...)
+            dict.__getitem__(x, y)
+            dict.__gt__(x, y)
+            dict.__iter__(x)
+            dict.__le__(x, y)
+            dict.__len__(x)
+            dict.__lt__(x, y)
+            dict.__ne__(x, y)
+            dict.__new__(T, S, *...)
+            dict.__repr__(x)
+            dict.__setitem__(x, i, y)
+            dict.__sizeof__(D)
+            dict.clear(D)
+            dict.copy(D)
+            dict.fromkeys(dict, S, v=...)
+            dict.has_key(D, k)
+            dict.items(D)
+            dict.iteritems(D)
+            dict.iterkeys(D)
+            dict.itervalues(D)
+            dict.keys(D)
+            dict.pop(D, k, d=...)
+            dict.popitem(D)
+            dict.setdefault(D, k, d=...)
+            dict.update(D, E, **F)
+            dict.values(D)
+
+        Inherited class variables
+            dict.__hash__ = None
+
+    class OID(object)
+        The Object Identifier object.
+
+
+        __init__(self, oid)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        parent(self)
+            Get the parent OID.
+            Returns:
+                The parent OID.
+            Return type:
+                OID
+
+        ltrim(self, n)
+            Left trim n parts.
+            Returns:
+                The trimmed OID
+            Return type:
+                OID
+
+        rtrim(self, n)
+            Right trim n parts.
+            Returns:
+                The trimmed OID
+            Return type:
+                OID
+
+        append(self, oid)
+            Append the specified OID fragment.
+            Returns:
+                The concatenated OID.
+            Return type:
+                OID
+
+        match(self, oid)
+            Match the specified OID considering wildcards. Patterns:
+
+              - 1.4.5.6.74 (not wildcarded)
+              - .5.6.74 (match on only last 4)
+              - 5.6.74. (match only first 4)
+              - 1.4.*.6.*  (wildcard pattern)
+            Returns:
+                True if matched
+
+        __len__(self)
+
+        __getitem__(self, index)
+
+        __repr__(self)
+            repr(x)
+
+        __hash__(self)
+            hash(x)
+
+        __eq__(self, other)
+
+        __str__(self)
+            str(x)
+
+        Class methods
+
+            join(cls, *oid)
+
+            split(cls, s)
+                Split an OID string.
+                Returns:
+                    A list of OID parts.
+                Return type:
+                    [str,]
+
+        Instance variables
+
+            part
+                The oid parts.
+
+        Class variables
+
+            WILDCARD = '*'
+                The wildcard character.
+
+        Inherited methods
+
+    class Order
+
+
+        __init__(self, ext)
+
+        getName(self)
+
+        getNumber(self)
+
+        getSku(self)
+
+        getSubscription(self)
+
+        getQuantity(self)
+
+        getStart(self)
+
+        getEnd(self)
+
+        getVirtLimit(self)
+
+        getSocketLimit(self)
+
+        getContract(self)
+
+        getQuantityUsed(self)
+
+        getWarningPeriod(self)
+
+        getAccountNumber(self)
+
+        __str__(self)
+
+    class Product
+
+
+        __init__(self, hash, ext)
+
+        getHash(self)
+
+        getName(self)
+
+        getVariant(self)
+
+        getArch(self)
+
+        getVersion(self)
+
+        __eq__(self, rhs)
+
+        __str__(self)
+
+        __repr__(self)
+
+    class Entitlement
+
+
+        __init__(self, ext)
+
+    class Content(Entitlement)
+
+
+        getName(self)
+
+        getLabel(self)
+
+        getQuantity(self)
+
+        getFlexQuantity(self)
+
+        getVendor(self)
+
+        getUrl(self)
+
+        getGpg(self)
+
+        getEnabled(self)
+
+        __eq__(self, rhs)
+
+        __str__(self)
+
+        __repr__(self)
+
+        Inherited methods
+            rhsm.certificate.Entitlement.__init__(self, ext)
+
+    class Role(Entitlement)
+
+
+        getName(self)
+
+        getDescription(self)
+
+        __eq__(self, rhs)
+
+        __str__(self)
+
+        __repr__(self)
+
+        Inherited methods
+            rhsm.certificate.Entitlement.__init__(self, ext)
+
+    class Bundle(object)
+
+
+        __init__(self, key=None, cert=None)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        read(self, path)
+
+        write(self, path)
+
+        __str__(self)
+            str(x)
+
+        Class variables
+
+            KEY_PATTERN = re.compile('-----BEGIN.+KEY-----\n.+\n-----END...
+
+            CERT_PATTERN = re.compile('-----BEGIN CERTIFICATE-----\n.+\n...
+
+        Inherited methods
+
+VARIABLES
+
+    log = logging.getLogger(__name__)
