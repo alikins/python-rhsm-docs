@@ -1,0 +1,52 @@
+MODULE NAME
+    rhsm.version
+
+
+CLASSES
+
+    class VersionError(exceptions.Exception)
+
+        Inherited methods
+            exceptions.BaseException.__delattr__(...)
+            exceptions.BaseException.__getattribute__(...)
+            exceptions.BaseException.__getitem__(x, y)
+            exceptions.BaseException.__getslice__(x, i, j)
+            exceptions.Exception.__init__(...)
+            exceptions.Exception.__new__(T, S, *...)
+            exceptions.BaseException.__reduce__(...)
+            exceptions.BaseException.__repr__(x)
+            exceptions.BaseException.__setattr__(...)
+            exceptions.BaseException.__setstate__(...)
+            exceptions.BaseException.__str__(x)
+            exceptions.BaseException.__unicode__(...)
+
+    class Versions(object)
+        Collects version information about the installed versions of
+        python-rhsm and subscription-manager RPMs.
+
+
+        __init__(self)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        _get_packages(self)
+
+        get_version(self, package_name)
+
+        get_release(self, package_name)
+
+        _get_package_attribute(self, package_name, attribute_name)
+
+        Class variables
+
+            SUBSCRIPTION_MANAGER = "subscription-manager"
+
+            PYTHON_RHSM = "python-rhsm"
+
+            __shared_data = {}
+
+            __initialized = False
+
+            __to_collect = [SUBSCRIPTION_MANAGER, PYTHON_RHSM]
+
+        Inherited methods

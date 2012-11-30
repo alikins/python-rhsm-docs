@@ -106,11 +106,10 @@ CLASSES
 
     class GoneException(RestlibException)
         GoneException - used to detect when a consumer has been deleted on
-        the candlepin side. We check both the deleted id and the candlepin
-        version, to ensure both were populated and have expected values
+        the candlepin side.
 
 
-        __init__(self, code, msg, deleted_id, candlepin_version)
+        __init__(self, code, msg, deleted_id)
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
@@ -280,15 +279,10 @@ CLASSES
         Unified Entitlement Platform.
 
 
-        __init__(self, host=config.get('server','hostname'),
-                 ssl_port=safe_int(config.get('server','port')),
-                 handler=config.get('server','prefix'),
-                 proxy_hostname=config.get('server','proxy_hostname'),
-                 proxy_port=config.get('server','proxy_port'),
-                 proxy_user=config.get('server','proxy_user'),
-                 proxy_password=config.get('server','proxy_password'),
-                 username=None, password=None, cert_file=None,
-                 key_file=None, insecure=None)
+        __init__(self, host=None, ssl_port=None, handler=None,
+                 proxy_hostname=None, proxy_port=None, proxy_user=None,
+                 proxy_password=None, username=None, password=None,
+                 cert_file=None, key_file=None, insecure=None)
             Two ways to authenticate:
 
               - username/password for HTTP basic authentication. (owner
@@ -437,6 +431,8 @@ CLASSES
         getEntitlement(self, entId)
 
         regenIdCertificate(self, consumerId)
+
+        getStatus(self)
 
         activateMachine(self, consumerId, email=None, lang=None)
             Activate a subscription by machine, information is located in
