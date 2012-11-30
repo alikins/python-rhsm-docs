@@ -215,7 +215,8 @@ CLASSES
                  quantity=None, virt_limit=None, socket_limit=None,
                  contract=None, quantity_used=None, warning_period=None,
                  account=None, provides_management=None, service_level=None,
-                 service_type=None, stacking_id=None, virt_only=None)
+                 service_type=None, stacking_id=None, virt_only=None,
+                 ram_limit=None)
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
