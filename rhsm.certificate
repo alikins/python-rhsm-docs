@@ -71,6 +71,13 @@ CLASSES
             Return type:
                 boolean
 
+        expired(self, on_date=None)
+            Get whether the certificate is expired based on date.
+            Returns:
+                True if valid.
+            Return type:
+                boolean
+
         bogus(self)
             Get whether the certificate contains bogus data or is otherwise
             unsuitable.  The certificate may be valid but still be
@@ -163,6 +170,7 @@ CLASSES
             rhsm.certificate.Certificate._parse_subject(self)
             rhsm.certificate.Certificate.alternateName(self)
             rhsm.certificate.Certificate.delete(self)
+            rhsm.certificate.Certificate.expired(self, on_date=None)
             rhsm.certificate.Certificate.extensions(self)
             rhsm.certificate.Certificate.read(self, pem_path)
             rhsm.certificate.Certificate.serialNumber(self)
@@ -215,6 +223,7 @@ CLASSES
             rhsm.certificate.RedhatCertificate._update(self, content)
             rhsm.certificate.Certificate.alternateName(self)
             rhsm.certificate.Certificate.delete(self)
+            rhsm.certificate.Certificate.expired(self, on_date=None)
             rhsm.certificate.Certificate.extensions(self)
             rhsm.certificate.Certificate.read(self, pem_path)
             rhsm.certificate.RedhatCertificate.redhat(self)
@@ -268,16 +277,6 @@ CLASSES
             Return type:
                 [Role,..]
 
-        validRange(self)
-            Get the valid date range.
-
-            Overrides the Certificate method to look at the Order end date,
-            ignoring the grace period (if there is one).
-            Returns:
-                The valid date range.
-            Return type:
-                DateRange
-
         validRangeWithGracePeriod(self)
 
         validWithGracePeriod(self)
@@ -301,6 +300,7 @@ CLASSES
             rhsm.certificate.Certificate._get_datetime(self, date)
             rhsm.certificate.Certificate._parse_subject(self)
             rhsm.certificate.Certificate.alternateName(self)
+            rhsm.certificate.Certificate.expired(self, on_date=None)
             rhsm.certificate.Certificate.extensions(self)
             rhsm.certificate.ProductCertificate.getProduct(self)
             rhsm.certificate.ProductCertificate.getProducts(self)
@@ -310,6 +310,7 @@ CLASSES
             rhsm.certificate.Certificate.subject(self)
             rhsm.certificate.Certificate.toPEM(self)
             rhsm.certificate.Certificate.valid(self, on_date=None)
+            rhsm.certificate.Certificate.validRange(self)
             rhsm.certificate.Certificate.write(self, pem_path)
 
         Inherited instance variables
