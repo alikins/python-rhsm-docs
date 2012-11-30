@@ -5,6 +5,7 @@ MODULE NAME
 CLASSES
 
     class InvalidProfileType(exceptions.Exception)
+        Thrown when attempting to get a profile of an unsupported type.
 
         Inherited methods
             exceptions.BaseException.__delattr__(...)
@@ -35,10 +36,6 @@ CLASSES
                 list of package info dicts
             Return type:
                 list
-
-        Inherited methods
-
-    class GemProfile(object)
 
         Inherited methods
 

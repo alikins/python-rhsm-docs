@@ -205,6 +205,8 @@ CLASSES
 
         validateResponse(self, response)
 
+        _parse_msg_from_error_response_body(self, body)
+
         request_get(self, method)
 
         request_post(self, method, params="")
@@ -243,12 +245,17 @@ CLASSES
 
         add_ssl_certs(self, cert_file=None, key_file=None)
 
+        supports_resource(self, resource_name)
+            Check if the server we're connecting too supports a particular
+            resource. For our use cases this is generally the plural form
+            of the resource.
+
         shutDown(self)
 
         ping(self, username=None, password=None)
 
         registerConsumer(self, name="unknown", type="system", facts={},
-                         owner=None)
+                         owner=None, environment=None)
             Creates a consumer on candlepin server
 
         registerConsumerWithKeys(self, name="unknown", type="system",
@@ -303,6 +310,21 @@ CLASSES
         getProduct(self, product_id)
 
         getEntitlementList(self, consumerId)
+
+        getEnvironmentList(self, owner_key)
+            List the environments for a particular owner.
+
+            Some servers may not support this and will error out. The
+            caller can always check with supports_resource("environments").
+
+        getEnvironment(self, owner_key=None, name=None)
+            Fetch an environment for an owner.
+
+            If querying by name, owner is required as environment names are
+            only unique within the context of an owner.
+
+            TODO: Add support for querying by ID, this will likely hit an
+            entirely different URL.
 
         getEntitlement(self, entId)
 
