@@ -131,7 +131,7 @@ CLASSES
 
 
         __init__(self, x509=None, path=None, version=None, serial=None,
-                 start=None, end=None)
+                 start=None, end=None, subject=None)
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
@@ -152,7 +152,7 @@ CLASSES
     class IdentityCertificate(Certificate)
 
 
-        __init__(self, alt_name=None, subject=None, **kwargs)
+        __init__(self, alt_name=None, **kwargs)
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 

@@ -135,6 +135,9 @@ CLASSES
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
+        __str__(self)
+            str(x)
+
         Inherited methods
             exceptions.BaseException.__delattr__(...)
             exceptions.BaseException.__getattribute__(...)
@@ -145,7 +148,6 @@ CLASSES
             exceptions.BaseException.__repr__(x)
             exceptions.BaseException.__setattr__(...)
             exceptions.BaseException.__setstate__(...)
-            exceptions.BaseException.__str__(x)
             exceptions.BaseException.__unicode__(...)
 
     class RemoteServerException(ConnectionException)
@@ -155,6 +157,9 @@ CLASSES
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
+        __str__(self)
+            str(x)
+
         Inherited methods
             exceptions.BaseException.__delattr__(...)
             exceptions.BaseException.__getattribute__(...)
@@ -165,7 +170,6 @@ CLASSES
             exceptions.BaseException.__repr__(x)
             exceptions.BaseException.__setattr__(...)
             exceptions.BaseException.__setstate__(...)
-            exceptions.BaseException.__str__(x)
             exceptions.BaseException.__unicode__(...)
 
     class NoOpChecker

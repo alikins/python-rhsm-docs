@@ -378,7 +378,7 @@ CLASSES
             Return type:
                 datetime.datetime
 
-        hasNow(self)
+        has_now(self)
             Get whether the certificate is valid based on the date now.
             Returns:
                 True if valid.
@@ -386,13 +386,15 @@ CLASSES
                 boolean
 
         has_date(self, date)
-            Get whether the certificate is valid based on the date now.
+            Get whether the certificate is valid based on the date.
             Returns:
                 True if valid.
             Return type:
                 boolean
 
         hasDate(self, date)
+
+        hasNow(self)
 
         __str__(self)
 
