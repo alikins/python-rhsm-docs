@@ -248,7 +248,11 @@ CLASSES
         ping(self, username=None, password=None)
 
         registerConsumer(self, name="unknown", type="system", facts={},
-                         owner="default")
+                         owner=None)
+            Creates a consumer on candlepin server
+
+        registerConsumerWithKeys(self, name="unknown", type="system",
+                                 facts={}, keys=[])
             Creates a consumer on candlepin server
 
         updateConsumerFacts(self, consumer_uuid, facts={})
@@ -273,13 +277,10 @@ CLASSES
         getCertificateSerials(self, consumerId)
             Get serial numbers for certs for a given consumer
 
-        bindByRegNumber(self, consumerId, regnum, email=None, lang=None)
-            Subscribe consumer to a subscription token
-
         bindByEntitlementPool(self, consumerId, poolId, quantity=None)
             Subscribe consumer to a subscription by pool ID.
 
-        bindByProduct(self, consumerId, products)
+        bindByProduct(self, consumerId, products, quantity=None)
             Subscribe consumer directly to one or more products by their
             ID. This will cause the UEP to look for one or more pools which
             provide access to the given product.
@@ -290,8 +291,12 @@ CLASSES
 
         unbindAll(self, consumerId)
 
-        getPoolsList(self, ownerid, consumerid, listAll=False,
-                     active_on=None)
+        getPoolsList(self, consumer=None, listAll=False, active_on=None,
+                     owner=None)
+            List pools for a given consumer or owner.
+
+            Ideally, try to always pass the owner key argument. The old
+            method is deprecated and may eventually be removed.
 
         getPool(self, poolId)
 

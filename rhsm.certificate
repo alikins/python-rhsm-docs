@@ -13,11 +13,11 @@ CLASSES
     class UTC(datetime.tzinfo)
 
 
-        tzname(self, dt)
+        tzname(self, date_time)
 
-        dst(self, dt)
+        dst(self, date_time)
 
-        utcoffset(self, dt)
+        utcoffset(self, date_time)
 
         __repr__(self)
 
@@ -87,14 +87,14 @@ CLASSES
             Return type:
                 Extensions
 
-        read(self, path)
+        read(self, pem_path)
             Read a certificate file.
             Returns:
                 A certificate
             Return type:
                 Certificate
 
-        write(self, path)
+        write(self, pem_path)
             Write the certificate.
             Returns:
                 self
@@ -164,13 +164,13 @@ CLASSES
             rhsm.certificate.Certificate.alternateName(self)
             rhsm.certificate.Certificate.delete(self)
             rhsm.certificate.Certificate.extensions(self)
-            rhsm.certificate.Certificate.read(self, path)
+            rhsm.certificate.Certificate.read(self, pem_path)
             rhsm.certificate.Certificate.serialNumber(self)
             rhsm.certificate.Certificate.subject(self)
             rhsm.certificate.Certificate.toPEM(self)
             rhsm.certificate.Certificate.valid(self, on_date=None)
             rhsm.certificate.Certificate.validRange(self)
-            rhsm.certificate.Certificate.write(self, path)
+            rhsm.certificate.Certificate.write(self, pem_path)
 
         Inherited instance variables
             rhsm.certificate.Certificate.x509
@@ -216,14 +216,14 @@ CLASSES
             rhsm.certificate.Certificate.alternateName(self)
             rhsm.certificate.Certificate.delete(self)
             rhsm.certificate.Certificate.extensions(self)
-            rhsm.certificate.Certificate.read(self, path)
+            rhsm.certificate.Certificate.read(self, pem_path)
             rhsm.certificate.RedhatCertificate.redhat(self)
             rhsm.certificate.Certificate.serialNumber(self)
             rhsm.certificate.Certificate.subject(self)
             rhsm.certificate.Certificate.toPEM(self)
             rhsm.certificate.Certificate.valid(self, on_date=None)
             rhsm.certificate.Certificate.validRange(self)
-            rhsm.certificate.Certificate.write(self, path)
+            rhsm.certificate.Certificate.write(self, pem_path)
 
         Inherited instance variables
             rhsm.certificate.Certificate.x509
@@ -302,13 +302,13 @@ CLASSES
             rhsm.certificate.Certificate.extensions(self)
             rhsm.certificate.ProductCertificate.getProduct(self)
             rhsm.certificate.ProductCertificate.getProducts(self)
-            rhsm.certificate.Certificate.read(self, path)
+            rhsm.certificate.Certificate.read(self, pem_path)
             rhsm.certificate.RedhatCertificate.redhat(self)
             rhsm.certificate.Certificate.serialNumber(self)
             rhsm.certificate.Certificate.subject(self)
             rhsm.certificate.Certificate.toPEM(self)
             rhsm.certificate.Certificate.valid(self, on_date=None)
-            rhsm.certificate.Certificate.write(self, path)
+            rhsm.certificate.Certificate.write(self, pem_path)
 
         Inherited instance variables
             rhsm.certificate.Certificate.x509
@@ -324,7 +324,7 @@ CLASSES
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
-        write(self, path)
+        write(self, pem_path)
             Write the key.
             Returns:
                 self
@@ -337,7 +337,7 @@ CLASSES
 
         Class methods
 
-            read(cls, path)
+            read(cls, pem_path)
                 Read the key.
 
         Instance variables
@@ -397,11 +397,11 @@ CLASSES
         GMT
 
 
-        utcoffset(self, dt)
+        utcoffset(self, date_time)
 
-        tzname(self, dt)
+        tzname(self, date_time)
 
-        dst(self, dt)
+        dst(self, date_time)
 
     class Extensions(dict)
         Represents x.509 (v3) custom extensions.
@@ -618,7 +618,7 @@ CLASSES
     class Product
 
 
-        __init__(self, hash, ext)
+        __init__(self, p_hash, ext)
 
         getHash(self)
 
@@ -687,28 +687,6 @@ CLASSES
 
         Inherited methods
             rhsm.certificate.Entitlement.__init__(self, ext)
-
-    class Bundle(object)
-
-
-        __init__(self, key=None, cert=None)
-            x.__init__(...) initializes x; see x.__class__.__doc__ for
-            signature
-
-        read(self, path)
-
-        write(self, path)
-
-        __str__(self)
-            str(x)
-
-        Class variables
-
-            KEY_PATTERN = re.compile('-----BEGIN.+KEY-----\n.+\n-----END...
-
-            CERT_PATTERN = re.compile('-----BEGIN CERTIFICATE-----\n.+\n...
-
-        Inherited methods
 
 FUNCTIONS
 

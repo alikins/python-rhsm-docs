@@ -44,7 +44,7 @@ CLASSES
 
 FUNCTIONS
 
-    get_profile(type)
+    get_profile(profile_type)
         Returns an instance of a Profile object
 
 VARIABLES
