@@ -219,6 +219,30 @@ CLASSES
         Inherited nested classes
             class httplib.HTTPConnection.response_class
 
+    class ContentConnection(object)
+
+
+        __init__(self, host, ssl_port=None, username=None, password=None,
+                 proxy_hostname=None, proxy_port=None, proxy_user=None,
+                 proxy_password=None, ca_dir=None, insecure=False,
+                 ssl_verify_depth=1)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        _request(self, request_type, handler, body=None)
+
+        _load_ca_certificates(self, context)
+
+        test(self)
+
+        request_get(self, method)
+
+        get_versions(self, path)
+
+        _get_versions_for_product(self, product_id)
+
+        Inherited methods
+
     class Restlib(object)
         A wrapper around httplib to make rest calls easier
 
@@ -314,7 +338,7 @@ CLASSES
             Update a consumers facts on candlepin server
 
         updateConsumer(self, uuid, facts=None, installed_products=None,
-                       guest_uuids=None, service_level=None)
+                       guest_uuids=None, service_level=None, release=None)
             Update a consumer on the server.
 
             Rather than requiring a full representation of the consumer,
@@ -387,6 +411,8 @@ CLASSES
         getPool(self, poolId)
 
         getProduct(self, product_id)
+
+        getRelease(self, consumerId)
 
         getEntitlementList(self, consumerId)
 
