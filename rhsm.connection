@@ -247,7 +247,8 @@ CLASSES
 
         ping(self, username=None, password=None)
 
-        registerConsumer(self, name="unknown", type="system", facts={})
+        registerConsumer(self, name="unknown", type="system", facts={},
+                         owner="default")
             Creates a consumer on candlepin server
 
         updateConsumerFacts(self, consumer_uuid, facts={})
@@ -255,6 +256,12 @@ CLASSES
 
         getConsumer(self, uuid, username, password)
             Returns a consumer object with pem/key for existing consumers
+
+        getOwner(self, uuid)
+            Returns an owner object with pem/key for existing consumers
+
+        getOwnerList(self, username)
+            Returns an owner objects with pem/key for existing consumers
 
         unregisterConsumer(self, consumerId)
             Deletes a consumer from candlepin server
@@ -283,7 +290,8 @@ CLASSES
 
         unbindAll(self, consumerId)
 
-        getPoolsList(self, consumerId, listAll=False, active_on=None)
+        getPoolsList(self, ownerid, consumerid, listAll=False,
+                     active_on=None)
 
         getPool(self, poolId)
 

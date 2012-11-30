@@ -611,6 +611,8 @@ CLASSES
 
         getSupportType(self)
 
+        getStackingId(self)
+
         __str__(self)
 
     class Product
