@@ -257,7 +257,7 @@ CLASSES
 
 
         __init__(self, host=config.get('server','hostname'),
-                 ssl_port=int(config.get('server','port')),
+                 ssl_port=safe_int(config.get('server','port')),
                  handler=config.get('server','prefix'),
                  proxy_hostname=config.get('server','proxy_hostname'),
                  proxy_port=config.get('server','proxy_port'),
@@ -365,6 +365,14 @@ CLASSES
             the server will not be able to fulfill the client's product
             certs with entitlements.
 
+        dryRunBind(self, consumer_uuid, service_level)
+            Performs a dry-run autobind on the server and returns the
+            results of what we would get. Callers can use this information
+            to determine if they wish to perform the autobind, and to
+            explicitly grab entitlements from each pool returned.
+
+            Return will be a dict containing a "quantity" and a "pool".
+
         unbindBySerial(self, consumerId, serial)
 
         unbindAll(self, consumerId)
@@ -411,6 +419,8 @@ CLASSES
         sanitize(self, urlParam, plus=False)
 
 FUNCTIONS
+
+    safe_int(value, safe_value=None)
 
     _get_locale()
 
