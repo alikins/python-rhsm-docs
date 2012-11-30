@@ -276,12 +276,17 @@ CLASSES
         updateConsumerFacts(self, consumer_uuid, facts={})
             Update a consumers facts on candlepin server
 
-        updateConsumer(self, uuid, facts=None, installed_products=None)
+        updateConsumer(self, uuid, facts=None, installed_products=None,
+                       guest_uuids=None)
             Update a consumer on the server.
 
             Rather than requiring a full representation of the consumer,
             only some information is passed depending on what we wish to
             update.
+
+            Note that installed_products and guest_uuids expects a certain
+            format, example parsing is in subscription-manager's
+            format_for_server() method.
 
         updatePackageProfile(self, consumer_uuid, pkg_dicts)
             Updates the consumer's package profile on the server.
@@ -316,7 +321,7 @@ CLASSES
             ID. This will cause the UEP to look for one or more pools which
             provide access to the given product.
 
-        bind(self, consumerId, future_date=None)
+        bind(self, consumerId, entitle_date=None)
             Same as bindByProduct, but assume the server has a list of the
             system's products. This is useful for autosubscribe. Note that
             this is done on a best-effort basis, and there are cases when
