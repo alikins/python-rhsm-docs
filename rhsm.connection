@@ -269,11 +269,19 @@ CLASSES
         ping(self, username=None, password=None)
 
         registerConsumer(self, name="unknown", type="system", facts={},
-                         owner=None, environment=None, keys=None)
+                         owner=None, environment=None, keys=None,
+                         installed_products=None)
             Creates a consumer on candlepin server
 
         updateConsumerFacts(self, consumer_uuid, facts={})
             Update a consumers facts on candlepin server
+
+        updateConsumer(self, uuid, facts=None, installed_products=None)
+            Update a consumer on the server.
+
+            Rather than requiring a full representation of the consumer,
+            only some information is passed depending on what we wish to
+            update.
 
         updatePackageProfile(self, consumer_uuid, pkg_dicts)
             Updates the consumer's package profile on the server.
@@ -307,6 +315,13 @@ CLASSES
             Subscribe consumer directly to one or more products by their
             ID. This will cause the UEP to look for one or more pools which
             provide access to the given product.
+
+        bind(self, consumerId)
+            Same as bindByProduct, but assume the server has a list of the
+            system's products. This is useful for autosubscribe. Note that
+            this is done on a best-effort basis, and there are cases when
+            the server will not be able to fulfill the client's product
+            certs with entitlements.
 
         unbindBySerial(self, consumerId, serial)
 
