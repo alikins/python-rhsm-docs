@@ -10,6 +10,17 @@ DESCRIPTION
 
 CLASSES
 
+    class UTC(datetime.tzinfo)
+
+
+        tzname(self, dt)
+
+        dst(self, dt)
+
+        utcoffset(self, dt)
+
+        __repr__(self)
+
     class Certificate(object)
         Represents and x.509 certificate.
 
@@ -50,6 +61,8 @@ CLASSES
                 The valid date range.
             Return type:
                 DateRange
+
+        _get_datetime(self, date)
 
         valid(self, on_date=None)
             Get whether the certificate is valid based on date.
@@ -146,6 +159,7 @@ CLASSES
             rhsm.certificate.Certificate.__init__(self, content=None)
             rhsm.certificate.Certificate.__repr__(self)
             rhsm.certificate.Certificate.__str__(self)
+            rhsm.certificate.Certificate._get_datetime(self, date)
             rhsm.certificate.Certificate._parse_subject(self)
             rhsm.certificate.Certificate.alternateName(self)
             rhsm.certificate.Certificate.delete(self)
@@ -196,6 +210,7 @@ CLASSES
             rhsm.certificate.Certificate.__cmp__(self, other)
             rhsm.certificate.Certificate.__init__(self, content=None)
             rhsm.certificate.Certificate.__repr__(self)
+            rhsm.certificate.Certificate._get_datetime(self, date)
             rhsm.certificate.Certificate._parse_subject(self)
             rhsm.certificate.RedhatCertificate._update(self, content)
             rhsm.certificate.Certificate.alternateName(self)
@@ -280,6 +295,7 @@ CLASSES
             rhsm.certificate.Certificate.__cmp__(self, other)
             rhsm.certificate.Certificate.__init__(self, content=None)
             rhsm.certificate.Certificate.__repr__(self)
+            rhsm.certificate.Certificate._get_datetime(self, date)
             rhsm.certificate.Certificate._parse_subject(self)
             rhsm.certificate.Certificate.alternateName(self)
             rhsm.certificate.Certificate.delete(self)
@@ -606,11 +622,11 @@ CLASSES
 
         getName(self)
 
-        getVariant(self)
-
         getArch(self)
 
         getVersion(self)
+
+        getProvidedTags(self)
 
         __eq__(self, rhs)
 
@@ -625,6 +641,8 @@ CLASSES
 
     class Content(Entitlement)
 
+
+        __init__(self, ext)
 
         getName(self)
 
@@ -644,14 +662,13 @@ CLASSES
 
         getMetadataExpire(self)
 
+        getRequiredTags(self)
+
         __eq__(self, rhs)
 
         __str__(self)
 
         __repr__(self)
-
-        Inherited methods
-            rhsm.certificate.Entitlement.__init__(self, ext)
 
     class Role(Entitlement)
 
@@ -690,6 +707,12 @@ CLASSES
             CERT_PATTERN = re.compile('-----BEGIN CERTIFICATE-----\n.+\n...
 
         Inherited methods
+
+FUNCTIONS
+
+    parse_tags(tag_str)
+        Split a comma separated list of tags from a certificate into a
+        list.
 
 VARIABLES
 

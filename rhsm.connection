@@ -299,6 +299,10 @@ CLASSES
             Activate a subscription by machine, information is located in
             the consumer facts
 
+FUNCTIONS
+
+    _get_locale()
+
 VARIABLES
 
     h = NullHandler()
