@@ -144,6 +144,13 @@ CLASSES
             exceptions.BaseException.__str__(x)
             exceptions.BaseException.__unicode__(...)
 
+    class NoOpChecker
+
+
+        __init__(self, host=None, peerCertHash=None, peerCertDigest='sha1')
+
+        __call__(self, peerCert, host=None)
+
     class RhsmProxyHTTPSConnection(M2Crypto.httpslib.ProxyHTTPSConnection)
 
 
@@ -296,14 +303,12 @@ CLASSES
         bindByEntitlementPool(self, consumerId, poolId, quantity=None)
             Subscribe consumer to a subscription by pool ID.
 
-        bindByProduct(self, consumerId, products, quantity=None)
+        bindByProduct(self, consumerId, products)
             Subscribe consumer directly to one or more products by their
             ID. This will cause the UEP to look for one or more pools which
             provide access to the given product.
 
         unbindBySerial(self, consumerId, serial)
-
-        unbindByEntitlementId(self, consumerId, entId)
 
         unbindAll(self, consumerId)
 
@@ -342,6 +347,8 @@ CLASSES
         activateMachine(self, consumerId, email=None, lang=None)
             Activate a subscription by machine, information is located in
             the consumer facts
+
+        sanitize(self, urlParam, plus=False)
 
 FUNCTIONS
 
