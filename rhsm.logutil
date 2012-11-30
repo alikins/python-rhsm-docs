@@ -1,0 +1,11 @@
+MODULE NAME
+    rhsm.logutil
+
+
+FUNCTIONS
+
+    trace_me()
+
+    trace_me_more()
+
+    getLogger(name)
