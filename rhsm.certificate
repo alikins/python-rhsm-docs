@@ -237,6 +237,9 @@ CLASSES
 
         _update(self, content)
 
+        delete(self)
+            Delete the file associated with this certificate.
+
         getOrder(self)
             Get the order object defined in the certificate.
             Returns:
@@ -298,7 +301,6 @@ CLASSES
             rhsm.certificate.Certificate._get_datetime(self, date)
             rhsm.certificate.Certificate._parse_subject(self)
             rhsm.certificate.Certificate.alternateName(self)
-            rhsm.certificate.Certificate.delete(self)
             rhsm.certificate.Certificate.extensions(self)
             rhsm.certificate.ProductCertificate.getProduct(self)
             rhsm.certificate.ProductCertificate.getProducts(self)
