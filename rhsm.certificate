@@ -7,6 +7,15 @@ DESCRIPTION
     custom v3 extensions.  It is not intended to be a replacement of full
     wrapper but instead an extension.
 
+    Several of the classes in this module are now marked deprecated in
+    favor of their new counterparts in certificate2 module. However, rather
+    than depending on either specifically, you can use the create methods
+    below to automatically create the correct object for any given
+    certificate.
+
+    Eventually the deprecated classes below will be removed, and the new
+    classes will be relocated into this module.
+
 
 CLASSES
 
@@ -61,8 +70,6 @@ CLASSES
                 The valid date range.
             Return type:
                 DateRange
-
-        _get_datetime(self, date)
 
         valid(self, on_date=None)
             Get whether the certificate is valid based on date.
@@ -166,7 +173,6 @@ CLASSES
             rhsm.certificate.Certificate.__init__(self, content=None)
             rhsm.certificate.Certificate.__repr__(self)
             rhsm.certificate.Certificate.__str__(self)
-            rhsm.certificate.Certificate._get_datetime(self, date)
             rhsm.certificate.Certificate._parse_subject(self)
             rhsm.certificate.Certificate.alternateName(self)
             rhsm.certificate.Certificate.delete(self)
@@ -218,7 +224,6 @@ CLASSES
             rhsm.certificate.Certificate.__cmp__(self, other)
             rhsm.certificate.Certificate.__init__(self, content=None)
             rhsm.certificate.Certificate.__repr__(self)
-            rhsm.certificate.Certificate._get_datetime(self, date)
             rhsm.certificate.Certificate._parse_subject(self)
             rhsm.certificate.RedhatCertificate._update(self, content)
             rhsm.certificate.Certificate.alternateName(self)
@@ -297,7 +302,6 @@ CLASSES
             rhsm.certificate.Certificate.__cmp__(self, other)
             rhsm.certificate.Certificate.__init__(self, content=None)
             rhsm.certificate.Certificate.__repr__(self)
-            rhsm.certificate.Certificate._get_datetime(self, date)
             rhsm.certificate.Certificate._parse_subject(self)
             rhsm.certificate.Certificate.alternateName(self)
             rhsm.certificate.Certificate.expired(self, on_date=None)
@@ -381,12 +385,14 @@ CLASSES
             Return type:
                 boolean
 
-        hasDate(self, date)
+        has_date(self, date)
             Get whether the certificate is valid based on the date now.
             Returns:
                 True if valid.
             Return type:
                 boolean
+
+        hasDate(self, date)
 
         __str__(self)
 
@@ -448,16 +454,14 @@ CLASSES
             Return type:
                 Extensions
 
-        __ext(self, x509)
+        _get_extensions_block(self, x509)
+            Isolate the block of text with the extensions.
 
-        __parse(self, x509)
+        _parse(self, x509)
+            Parse the extensions section. Expects an m2crypto X509 object.
 
         __str__(self)
             str(x)
-
-        Class variables
-
-            pattern = re.compile('([0-9]+\.)+[0-9]+:')
 
         Inherited methods
             dict.__cmp__(x, y)
@@ -701,12 +705,42 @@ CLASSES
         Inherited methods
             rhsm.certificate.Entitlement.__init__(self, ext)
 
+    class CertificateException(exceptions.Exception)
+
+        Inherited methods
+            exceptions.BaseException.__delattr__(...)
+            exceptions.BaseException.__getattribute__(...)
+            exceptions.BaseException.__getitem__(x, y)
+            exceptions.BaseException.__getslice__(x, i, j)
+            exceptions.Exception.__init__(...)
+            exceptions.Exception.__new__(T, S, *...)
+            exceptions.BaseException.__reduce__(...)
+            exceptions.BaseException.__repr__(x)
+            exceptions.BaseException.__setattr__(...)
+            exceptions.BaseException.__setstate__(...)
+            exceptions.BaseException.__str__(x)
+            exceptions.BaseException.__unicode__(...)
+
 FUNCTIONS
+
+    create_from_file(path)
+
+    create_from_pem(pem)
 
     parse_tags(tag_str)
         Split a comma separated list of tags from a certificate into a
         list.
 
+    get_datetime_from_x509(date)
+
+    deprecated(func)
+        A decorator that marks a function as deprecated. This will cause a
+        warning to be emitted any time that function is used by a caller.
+
 VARIABLES
 
     log = logging.getLogger(__name__)
+
+    OID_PATTERN = re.compile('([0-9]+\.)+[0-9]+:')
+
+    VALUE_PATTERN = re.compile('.*prim:\s(\w*)\s*:*(.*)')
