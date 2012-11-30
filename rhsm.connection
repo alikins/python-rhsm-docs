@@ -316,7 +316,7 @@ CLASSES
             ID. This will cause the UEP to look for one or more pools which
             provide access to the given product.
 
-        bind(self, consumerId)
+        bind(self, consumerId, future_date=None)
             Same as bindByProduct, but assume the server has a list of the
             system's products. This is useful for autosubscribe. Note that
             this is done on a best-effort basis, and there are cases when
