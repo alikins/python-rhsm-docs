@@ -30,7 +30,7 @@ CLASSES
 
         _read_subject(self, x509)
 
-        _create_identity_cert(self, extensions, x509, path)
+        _create_identity_cert(self, version, extensions, x509, path)
 
         _create_v1_prod_cert(self, version, extensions, x509, path)
 
