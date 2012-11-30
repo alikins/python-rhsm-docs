@@ -589,6 +589,12 @@ CLASSES
 
         getAccountNumber(self)
 
+        getProvidesManagement(self)
+
+        getSupportLevel(self)
+
+        getSupportType(self)
+
         __str__(self)
 
     class Product

@@ -295,6 +295,10 @@ CLASSES
 
         regenIdCertificate(self, consumerId)
 
+        activateMachine(self, consumerId, email=None, lang=None)
+            Activate a subscription by machine, information is located in
+            the consumer facts
+
 VARIABLES
 
     h = NullHandler()
