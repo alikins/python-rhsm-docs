@@ -29,6 +29,8 @@ CLASSES
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
+        _collect_data(self)
+
         _get_packages(self)
 
         get_version(self, package_name)
