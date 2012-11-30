@@ -230,7 +230,7 @@ CLASSES
                 Order
 
         getEntitlements(self)
-            Get the all entitlements defined in the certificate.
+            Get all entitlements defined in the certificate.
             Returns:
                 A list of entitlement object.
             Return type:
@@ -641,6 +641,8 @@ CLASSES
         getGpg(self)
 
         getEnabled(self)
+
+        getMetadataExpire(self)
 
         __eq__(self, rhs)
 
