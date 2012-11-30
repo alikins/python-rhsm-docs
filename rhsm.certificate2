@@ -180,12 +180,59 @@ CLASSES
     class EntitlementCertificate(ProductCertificate)
 
 
-        __init__(self, order=None, content=None, **kwargs)
+        __init__(self, order=None, content=None, extensions=None, **kwargs)
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
+        _path_tree(self)
+            :return:    PathTree object built from this cert's extensions
+            :rtype:     rhsm.pathtree.PathTree
+
+            :raise: AttributeError if self.version.major < 3
+
+        check_path(self, path)
+            Checks the given path against the list of entitled paths as
+            encoded in extensions. See PathTree for more detailed docs.
+
+            :param path:    path to which access is being requested :type
+            path:    basestring
+
+            :return:    True iff the path matches, else False :rtype:
+            bool
+
+            :raise:    ValueError when self.version.major < 3
+
+        _check_v1_path(self, path)
+            Check the requested path against a v1 certificate
+
+            :param path:    requested path :type  path:    basestring
+            :return:    True iff the path matches, else False :rtype:
+            bool
+
         delete(self)
             Override parent to also delete certificate key.
+
+        Static methods
+
+            _validate_v1_url(oid_url, dest)
+
+                Determines if the destination URL matches the OID's URL.
+
+                Swaps out all $ variables (e.g. $basearch, $version) for a reg ex
+                wildcard in that location. For example, the following entitlement:
+                  content/dist/rhel/server/$version/$basearch/os
+
+                Should allow any value for the variables:
+                  content/dist/rhel/server/.+?/.+?/os
+
+                :param oid_url: path associated with an entitlement OID, as pulled from
+                                the cert's extensions.
+                :type  oid_url: basestring
+                :param dest:    path requested by a client
+                :type  dest:    basestring
+
+                :return: True iff the OID permits the destination else False
+                :rtype:  bool
 
         Inherited methods
             rhsm.certificate2.Certificate.__cmp__(self, other)

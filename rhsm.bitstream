@@ -1,0 +1,75 @@
+MODULE NAME
+    rhsm.bitstream
+
+
+CLASSES
+
+    class GhettoBitStream(object)
+        Accepts binary data and makes it available as a stream of bits or
+        one byte at a time. Python does not provide a built-in way to read
+        a stream of bits, or a way to represent a single bit. Thus, this
+        class uses character '0' or '1' to represent the status of each
+        bit.
+
+        Data is converted into the '0' and '1' characters one byte at a
+        time, since that operation multiplies the size of the data by a
+        factor of 8, and it may not be desirable to inflate all of the data
+        at once.
+
+
+        __init__(self, data)
+            :param data:    binary data in a string :type  data:    str
+
+        __iter__(self)
+
+        next(self)
+            converts one byte at a time into a bit representation, waiting
+            until those bits have been consumed before converting another
+            byte
+
+            :return:    next bit in the stream, either '0' or '1' :rtype:
+            string
+
+        pop_byte(self)
+            :return:    next entire byte in the stream, as an int :rtype:
+            int
+
+        Class methods
+
+            _byte_to_bits(cls, byte)
+                Produces a string representation of a byte as a base-2
+                number. Python versions < 2.6 lack the "bin()" builtin as
+                well as the below "format()" method of strings, so this
+                method falls back to using a home-brew implementation.
+
+                :param byte:    positive int < 256 :type  byte:    int
+                :return:        binary representation of byte as 8-char
+                string :rtype:         str
+
+        Static methods
+
+            _bin_backport(x)
+                In python versions < 2.6, there is no built-in way to
+                produce a string representation of base-2 data. Thus, we
+                have to do it manually.
+
+                :param byte:    positive int < 256 :type  byte:    int
+                :return:        binary representation of byte as 8-char
+                string :rtype:         str
+
+            combine_bytes(data)
+
+                combine unsigned ints read from a bit stream into one unsigned number,
+                reading data as big-endian
+
+                :param data:    iterable of positive ints, each representing a byte of
+                                uint binary data that should be combined
+                                such that the right-most byte stays as-is, and then
+                                each byte to the left gets left-shifted by 8 * n bits.
+                                For example, [1, 2] would give you 258 ((1 << 8) + 2)
+                :type  data:    iterable of positive ints
+                :return:        positive int, composed from input bytes combined as
+                                one int
+                :rtype:         int
+
+        Inherited methods
