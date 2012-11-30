@@ -4,6 +4,32 @@ MODULE NAME
 
 CLASSES
 
+    class NullHandler(logging.Handler)
+
+
+        emit(self, record)
+            Do whatever it takes to actually log the specified logging
+            record.
+
+            This version is intended to be implemented by subclasses and so
+            raises a NotImplementedError.
+
+        Inherited methods
+            logging.Handler.__init__(self, level=NOTSET)
+            logging.Handler.acquire(self)
+            logging.Filterer.addFilter(self, filter)
+            logging.Handler.close(self)
+            logging.Handler.createLock(self)
+            logging.Filterer.filter(self, record)
+            logging.Handler.flush(self)
+            logging.Handler.format(self, record)
+            logging.Handler.handle(self, record)
+            logging.Handler.handleError(self, record)
+            logging.Handler.release(self)
+            logging.Filterer.removeFilter(self, filter)
+            logging.Handler.setFormatter(self, fmt)
+            logging.Handler.setLevel(self, level)
+
     class ConnectionException(exceptions.Exception)
 
         Inherited methods
@@ -76,6 +102,26 @@ CLASSES
             exceptions.BaseException.__repr__(x)
             exceptions.BaseException.__setattr__(...)
             exceptions.BaseException.__setstate__(...)
+            exceptions.BaseException.__unicode__(...)
+
+    class NetworkException(ConnectionException)
+
+
+        __init__(self, code)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        Inherited methods
+            exceptions.BaseException.__delattr__(...)
+            exceptions.BaseException.__getattribute__(...)
+            exceptions.BaseException.__getitem__(x, y)
+            exceptions.BaseException.__getslice__(x, i, j)
+            exceptions.Exception.__new__(T, S, *...)
+            exceptions.BaseException.__reduce__(...)
+            exceptions.BaseException.__repr__(x)
+            exceptions.BaseException.__setattr__(...)
+            exceptions.BaseException.__setstate__(...)
+            exceptions.BaseException.__str__(x)
             exceptions.BaseException.__unicode__(...)
 
     class RhsmProxyHTTPSConnection(M2Crypto.httpslib.ProxyHTTPSConnection)
@@ -230,6 +276,8 @@ CLASSES
         regenIdCertificate(self, consumerId)
 
 VARIABLES
+
+    h = NullHandler()
 
     log = logging.getLogger(__name__)
 
