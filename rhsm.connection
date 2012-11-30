@@ -104,6 +104,29 @@ CLASSES
             exceptions.BaseException.__setstate__(...)
             exceptions.BaseException.__unicode__(...)
 
+    class GoneException(RestlibException)
+        GoneException - used to detect when a consumer has been deleted on
+        the candlepin side. We check both the deleted id and the candlepin
+        version, to ensure both were populated and have expected values
+
+
+        __init__(self, code, msg, deleted_id, candlepin_version)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        Inherited methods
+            exceptions.BaseException.__delattr__(...)
+            exceptions.BaseException.__getattribute__(...)
+            exceptions.BaseException.__getitem__(x, y)
+            exceptions.BaseException.__getslice__(x, i, j)
+            exceptions.Exception.__new__(T, S, *...)
+            exceptions.BaseException.__reduce__(...)
+            exceptions.BaseException.__repr__(x)
+            exceptions.BaseException.__setattr__(...)
+            exceptions.BaseException.__setstate__(...)
+            rhsm.connection.RestlibException.__str__(self)
+            exceptions.BaseException.__unicode__(...)
+
     class NetworkException(ConnectionException)
 
 
@@ -291,7 +314,7 @@ CLASSES
             Update a consumers facts on candlepin server
 
         updateConsumer(self, uuid, facts=None, installed_products=None,
-                       guest_uuids=None)
+                       guest_uuids=None, service_level=None)
             Update a consumer on the server.
 
             Rather than requiring a full representation of the consumer,
@@ -358,6 +381,9 @@ CLASSES
         getProduct(self, product_id)
 
         getEntitlementList(self, consumerId)
+
+        getServiceLevelList(self, owner_key)
+            List the service levels available for an owner.
 
         getEnvironmentList(self, owner_key)
             List the environments for a particular owner.
