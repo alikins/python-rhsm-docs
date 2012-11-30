@@ -22,7 +22,7 @@ CLASSES
         create_from_pem(self, pem, path=None)
             Create appropriate certificate object from a PEM string.
 
-        _read_x509(self, x509, path)
+        _read_x509(self, x509, path, pem)
 
         _create_v1_cert(self, version, extensions, x509, path)
 
@@ -46,15 +46,15 @@ CLASSES
 
         _get_v1_cert_type(self, extensions)
 
-        _create_v2_cert(self, version, extensions, x509, path)
+        _create_v3_cert(self, version, extensions, x509, path, pem)
 
-        _parse_v2_order(self, payload)
+        _parse_v3_order(self, payload)
 
-        _parse_v2_products(self, payload)
+        _parse_v3_products(self, payload)
             Returns an ordered list of all the product data in the
             certificate.
 
-        _parse_v2_content(self, payload)
+        _parse_v3_content(self, payload)
 
         _decompress_payload(self, payload)
             Certificate payloads arrive in zlib compressed strings of JSON.
@@ -131,7 +131,7 @@ CLASSES
 
 
         __init__(self, x509=None, path=None, version=None, serial=None,
-                 start=None, end=None, subject=None)
+                 start=None, end=None, subject=None, pem=None)
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
@@ -227,9 +227,9 @@ CLASSES
     class Content(object)
 
 
-        __init__(self, name=None, label=None, vendor=None, url=None,
-                 gpg=None, enabled=None, metadata_expire=None,
-                 required_tags=None)
+        __init__(self, content_type=None, name=None, label=None,
+                 vendor=None, url=None, gpg=None, enabled=None,
+                 metadata_expire=None, required_tags=None)
             x.__init__(...) initializes x; see x.__class__.__doc__ for
             signature
 
