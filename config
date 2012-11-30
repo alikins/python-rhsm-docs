@@ -1,0 +1,58 @@
+MODULE NAME
+    config
+
+
+CLASSES
+
+    class RhsmConfigParser(ConfigParser.SafeConfigParser)
+
+
+        __init__(self, config_file=None, defaults=None)
+
+        save(self, config_file=None)
+
+        Inherited methods
+            ConfigParser.RawConfigParser._get(self, section, conv, option)
+            ConfigParser.SafeConfigParser._interpolate(self, section, option, rawval, vars)
+            ConfigParser.SafeConfigParser._interpolate_some(self, option, accum, rest, section, map, depth)
+            ConfigParser.ConfigParser._interpolation_replace(self, match)
+            ConfigParser.RawConfigParser._read(self, fp, fpname)
+            ConfigParser.RawConfigParser.add_section(self, section)
+            ConfigParser.RawConfigParser.defaults(self)
+            ConfigParser.ConfigParser.get(self, section, option, raw=False, vars=None)
+            ConfigParser.RawConfigParser.getboolean(self, section, option)
+            ConfigParser.RawConfigParser.getfloat(self, section, option)
+            ConfigParser.RawConfigParser.getint(self, section, option)
+            ConfigParser.RawConfigParser.has_option(self, section, option)
+            ConfigParser.RawConfigParser.has_section(self, section)
+            ConfigParser.ConfigParser.items(self, section, raw=False, vars=None)
+            ConfigParser.RawConfigParser.options(self, section)
+            ConfigParser.RawConfigParser.optionxform(self, optionstr)
+            ConfigParser.RawConfigParser.read(self, filenames)
+            ConfigParser.RawConfigParser.readfp(self, fp, filename=None)
+            ConfigParser.RawConfigParser.remove_option(self, section, option)
+            ConfigParser.RawConfigParser.remove_section(self, section)
+            ConfigParser.RawConfigParser.sections(self)
+            ConfigParser.SafeConfigParser.set(self, section, option, value)
+            ConfigParser.RawConfigParser.write(self, fp)
+
+        Inherited class variables
+            ConfigParser.RawConfigParser.OPTCRE = re.compile(r'(?P<option>[^:=\s][^:=]*)' r'\s*(?P<vi>[:...
+            ConfigParser.RawConfigParser.SECTCRE = re.compile(r'\[' r'(?P<header>[^]]+)' r'\]')
+            ConfigParser.ConfigParser._KEYCRE = re.compile(r"%\(([^)]*)\)s|.")
+            ConfigParser.RawConfigParser._boolean_states = {'1': True, 'yes': True, 'true': True, 'on': True, '0'...
+            ConfigParser.SafeConfigParser._interpvar_re = re.compile(r"%\(([^)]+)\)s")
+
+FUNCTIONS
+
+    initConfig(config_file=None)
+
+VARIABLES
+
+    DEFAULT_CONFIG_DIR = "/etc/rhsm"
+
+    DEFAULT_CONFIG_PATH = "%s/rhsm.conf" % DEFAULT_CONFIG_DIR
+
+    DEFAULT_PROXY_PORT = "3128"
+
+    DEFAULTS = {'hostname': 'localhost', 'prefix': '/candlepin', 'port':...

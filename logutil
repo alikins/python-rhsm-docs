@@ -1,0 +1,17 @@
+MODULE NAME
+    logutil
+
+
+FUNCTIONS
+
+    trace_me()
+
+    trace_me_more()
+
+    getLogger(name)
+
+    getLastCertUpdate()
+
+VARIABLES
+
+    CERT_LOG = '/var/log/rhsm/rhsmcertd.log'

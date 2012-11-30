@@ -1,0 +1,218 @@
+MODULE NAME
+    connection
+
+
+CLASSES
+
+    class ConnectionException(exceptions.Exception)
+
+        Inherited methods
+            exceptions.BaseException.__delattr__(...)
+            exceptions.BaseException.__getattribute__(...)
+            exceptions.BaseException.__getitem__(x, y)
+            exceptions.BaseException.__getslice__(x, i, j)
+            exceptions.Exception.__init__(...)
+            exceptions.Exception.__new__(T, S, *...)
+            exceptions.BaseException.__reduce__(...)
+            exceptions.BaseException.__repr__(x)
+            exceptions.BaseException.__setattr__(...)
+            exceptions.BaseException.__setstate__(...)
+            exceptions.BaseException.__str__(x)
+            exceptions.BaseException.__unicode__(...)
+
+    class ConnectionSetupException(ConnectionException)
+
+        Inherited methods
+            exceptions.BaseException.__delattr__(...)
+            exceptions.BaseException.__getattribute__(...)
+            exceptions.BaseException.__getitem__(x, y)
+            exceptions.BaseException.__getslice__(x, i, j)
+            exceptions.Exception.__init__(...)
+            exceptions.Exception.__new__(T, S, *...)
+            exceptions.BaseException.__reduce__(...)
+            exceptions.BaseException.__repr__(x)
+            exceptions.BaseException.__setattr__(...)
+            exceptions.BaseException.__setstate__(...)
+            exceptions.BaseException.__str__(x)
+            exceptions.BaseException.__unicode__(...)
+
+    class RestlibException(ConnectionException)
+
+
+        __init__(self, code, msg="")
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        __str__(self)
+            str(x)
+
+        Inherited methods
+            exceptions.BaseException.__delattr__(...)
+            exceptions.BaseException.__getattribute__(...)
+            exceptions.BaseException.__getitem__(x, y)
+            exceptions.BaseException.__getslice__(x, i, j)
+            exceptions.Exception.__new__(T, S, *...)
+            exceptions.BaseException.__reduce__(...)
+            exceptions.BaseException.__repr__(x)
+            exceptions.BaseException.__setattr__(...)
+            exceptions.BaseException.__setstate__(...)
+            exceptions.BaseException.__unicode__(...)
+
+    class RhsmProxyHTTPSConnection(M2Crypto.httpslib.ProxyHTTPSConnection)
+
+
+        endheaders(self, body=None)
+            Indicate that the last header line has been sent to the server.
+
+        Inherited methods
+            M2Crypto.httpslib.ProxyHTTPSConnection.__init__(self, host, port=None, strict=None, username=None,
+                 password=None, **ssl)
+            M2Crypto.httpslib.ProxyHTTPSConnection._encode_auth(self)
+            M2Crypto.httpslib.ProxyHTTPSConnection._get_connect_msg(self)
+            httplib.HTTPConnection._output(self, s)
+            httplib.HTTPConnection._send_output(self)
+            httplib.HTTPConnection._send_request(self, method, url, body, headers)
+            httplib.HTTPConnection._set_hostport(self, host, port)
+            httplib.HTTPConnection._set_tunnel(self, host, port=None, headers=None)
+            M2Crypto.httpslib.ProxyHTTPSConnection._start_ssl(self)
+            httplib.HTTPConnection._tunnel(self)
+            M2Crypto.httpslib.HTTPSConnection.close(self)
+            M2Crypto.httpslib.ProxyHTTPSConnection.connect(self)
+            M2Crypto.httpslib.HTTPSConnection.get_session(self)
+            httplib.HTTPConnection.getresponse(self)
+            M2Crypto.httpslib.ProxyHTTPSConnection.putheader(self, header, value)
+            M2Crypto.httpslib.ProxyHTTPSConnection.putrequest(self, method, url, skip_host=0, skip_accept_encoding=0)
+            httplib.HTTPConnection.request(self, method, url, body=None, headers={})
+            httplib.HTTPConnection.send(self, str)
+            httplib.HTTPConnection.set_debuglevel(self, level)
+            M2Crypto.httpslib.HTTPSConnection.set_session(self, session)
+
+        Inherited class variables
+            M2Crypto.httpslib.ProxyHTTPSConnection._AUTH_HEADER = "Proxy-Authorization"
+            M2Crypto.httpslib.ProxyHTTPSConnection._UA_HEADER = "User-Agent"
+            httplib.HTTPConnection._http_vsn = 11
+            httplib.HTTPConnection._http_vsn_str = 'HTTP/1.1'
+            M2Crypto.httpslib.ProxyHTTPSConnection._ports = {'http': 80, 'https': 443}
+            httplib.HTTPConnection.auto_open = 1
+            httplib.HTTPConnection.debuglevel = 0
+            M2Crypto.httpslib.HTTPSConnection.default_port = HTTPS_PORT
+            httplib.HTTPConnection.strict = 0
+
+        Inherited nested classes
+            class httplib.HTTPConnection.response_class
+
+    class Restlib(object)
+        A wrapper around httplib to make rest calls easier
+
+
+        __init__(self, host, ssl_port, apihandler, username=None,
+                 password=None, proxy_hostname=None, proxy_port=None,
+                 proxy_user=None, proxy_password=None, cert_file=None,
+                 key_file=None, ca_dir=None, insecure=False,
+                 ssl_verify_depth=1)
+            x.__init__(...) initializes x; see x.__class__.__doc__ for
+            signature
+
+        _load_ca_certificates(self, context)
+
+        _request(self, request_type, method, info=None)
+
+        validateResponse(self, response)
+
+        request_get(self, method)
+
+        request_post(self, method, params="")
+
+        request_head(self, method)
+
+        request_put(self, method, params="")
+
+        request_delete(self, method)
+
+        Inherited methods
+
+    class UEPConnection
+        Class for communicating with the REST interface of a Red Hat
+        Unified Entitlement Platform.
+
+
+        __init__(self, host=config.get('server','hostname'),
+                 ssl_port=int(config.get('server','port')),
+                 handler=config.get('server','prefix'),
+                 proxy_hostname=config.get('server','proxy_hostname'),
+                 proxy_port=config.get('server','proxy_port'),
+                 proxy_user=config.get('server','proxy_user'),
+                 proxy_password=config.get('server','proxy_password'),
+                 username=None, password=None, cert_file=None,
+                 key_file=None)
+            Two ways to authenticate:
+
+              - username/password for HTTP basic authentication. (owner
+                admin role)
+              - uuid/key_file/cert_file for identity cert authentication.
+                (consumer role)
+
+            Must specify one method of authentication or the other, not
+            both.
+
+        add_ssl_certs(self, cert_file=None, key_file=None)
+
+        shutDown(self)
+
+        ping(self, username=None, password=None)
+
+        registerConsumer(self, name="unknown", type="system", facts={})
+            Creates a consumer on candlepin server
+
+        updateConsumerFacts(self, consumer_uuid, facts={})
+            Update a consumers facts on candlepin server
+
+        getConsumer(self, uuid, username, password)
+            Returns a consumer object with pem/key for existing consumers
+
+        unregisterConsumer(self, consumerId)
+            Deletes a consumer from candlepin server
+
+        getCertificates(self, consumer_uuid, serials=[])
+            Fetch all entitlement certificates for this consumer. Specify a
+            list of serial numbers to filter if desired.
+
+        getCertificateSerials(self, consumerId)
+            Get serial numbers for certs for a given consumer
+
+        bindByRegNumber(self, consumerId, regnum, email=None, lang=None)
+            Subscribe consumer to a subscription token
+
+        bindByEntitlementPool(self, consumerId, poolId, quantity=None)
+            Subscribe consumer to a subscription by pool ID.
+
+        bindByProduct(self, consumerId, products)
+            Subscribe consumer directly to one or more products by their
+            ID. This will cause the UEP to look for one or more pools which
+            provide access to the given product.
+
+        unbindBySerial(self, consumerId, serial)
+
+        unbindByEntitlementId(self, consumerId, entId)
+
+        unbindAll(self, consumerId)
+
+        getPoolsList(self, consumerId, listAll=False, active_on=None)
+
+        getPool(self, poolId)
+
+        getProduct(self, product_id)
+
+        getEntitlementList(self, consumerId)
+
+        getEntitlement(self, entId)
+
+        regenIdCertificate(self, consumerId)
+
+VARIABLES
+
+    log = getLogger(__name__)
+
+    _ = gettext.gettext
+
+    config = initConfig()
