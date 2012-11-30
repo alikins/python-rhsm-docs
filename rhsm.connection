@@ -150,13 +150,11 @@ CLASSES
         endheaders(self, body=None)
             Indicate that the last header line has been sent to the server.
 
-        _get_connect_msg(self)
-            Return an HTTP CONNECT request to send to the proxy.
-
         Inherited methods
             M2Crypto.httpslib.ProxyHTTPSConnection.__init__(self, host, port=None, strict=None, username=None,
                  password=None, **ssl)
             M2Crypto.httpslib.ProxyHTTPSConnection._encode_auth(self)
+            M2Crypto.httpslib.ProxyHTTPSConnection._get_connect_msg(self)
             httplib.HTTPConnection._output(self, s)
             httplib.HTTPConnection._send_output(self)
             httplib.HTTPConnection._send_request(self, method, url, body, headers)
@@ -300,10 +298,6 @@ CLASSES
         activateMachine(self, consumerId, email=None, lang=None)
             Activate a subscription by machine, information is located in
             the consumer facts
-
-FUNCTIONS
-
-    _get_locale()
 
 VARIABLES
 
