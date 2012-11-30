@@ -262,11 +262,7 @@ CLASSES
         ping(self, username=None, password=None)
 
         registerConsumer(self, name="unknown", type="system", facts={},
-                         owner=None, environment=None)
-            Creates a consumer on candlepin server
-
-        registerConsumerWithKeys(self, name="unknown", type="system",
-                                 facts={}, keys=[])
+                         owner=None, environment=None, keys=None)
             Creates a consumer on candlepin server
 
         updateConsumerFacts(self, consumer_uuid, facts={})
