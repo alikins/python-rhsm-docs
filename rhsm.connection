@@ -243,7 +243,14 @@ CLASSES
             Must specify one method of authentication or the other, not
             both.
 
-        add_ssl_certs(self, cert_file=None, key_file=None)
+        _load_supported_resources(self)
+            Load the list of supported resources by doing a GET on the root
+            of the web application we're configured to use.
+
+            Need to handle exceptions here because sometimes UEPConnections
+            are created in a state where they can't actually be used. (they
+            get replaced later) If something goes wrong making this
+            request, just leave the list of supported resources empty.
 
         supports_resource(self, resource_name)
             Check if the server we're connecting too supports a particular
@@ -265,7 +272,13 @@ CLASSES
         updateConsumerFacts(self, consumer_uuid, facts={})
             Update a consumers facts on candlepin server
 
-        getConsumer(self, uuid, username, password)
+        updatePackageProfile(self, consumer_uuid, pkg_dicts)
+            Updates the consumer's package profile on the server.
+
+            pkg_dicts expected to be a list of dicts, each containing the
+            package headers we're interested in. See profile.py.
+
+        getConsumer(self, uuid, username=None, password=None)
             Returns a consumer object with pem/key for existing consumers
 
         getOwner(self, uuid)
